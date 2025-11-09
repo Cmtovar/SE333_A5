@@ -30,3 +30,29 @@ I used referred to the [GitHub docs](https://docs.github.com/en/actions/how-tos/
 This workflow will trigger automatically whenever there's a push to the main branch. 
 It includes checkstyle static analysis, executes all tests, and reports coverage using JaCoCo. 
 Checkstlye and JaCoCo reports are viewable as artifacts at the github actions page. 
+
+Part 3 - Amazon Integration and Unit Tests
+
+Unit Tests (AmazonUnitTest.java)
+I create specification based tests for the Cost package classes 
+
+These included: 
+[1] Delivery Price - Tested boundary values (0, 1, 3, 4, 10, 11) for item quantity to verify correct delivery fee tiers
+[2] ExtraCostForElectronics - Tested with and without electronic items in the cart to verify the $7.50 fee
+[3] RegularCost - Tested price calculations with multiple items and quantities per item
+
+Unit tests achieved 87% branch coverage on the Cost package. No structural tests were included. 
+
+Integration Tests (AmazonIntegartionTest.java)
+I created integration tests using the real Database. 
+These were some simple tests that checks situations with empty carts, simple orders, and orders containing electronics. 
+Verified that $0 total cost occurs for an empty cart. 
+Tested a cart containing multiple items (simple order; no electronics), and verified the correct calculation with all fees included
+Tested a cart containing an electronic item, and verified that the electronics fee is applied.
+
+I added one structural-based test for the database close method since it didn't appear to have coverage in the JaCoCo report. 
+This improved coverage. 
+
+These integration tests used @BeforeAll to initialize the databse and used @AfterEach to reset the database between tests. 
+This isolated each test without needing to create a new database each time. 
+ 
